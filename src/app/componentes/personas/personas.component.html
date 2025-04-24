@@ -1,0 +1,12 @@
+<h1>Lista de personas</h1>
+
+@for (nombrePersona of personas; track $index) {
+    <p>{{nombrePersona}} 
+        <button 
+        (click)="
+            seleccionarPersona(nombrePersona)"
+        >
+        seleccionar</button></p>
+}
+
+<router-outlet></router-outlet>
