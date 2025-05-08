@@ -1,10 +1,26 @@
 .nav {
-    border-bottom: 1px solid #ccc;
-    padding: 1rem;
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    background-image: url('../assets/imagenes/fondo-nav.jpg');
+    ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.selected {
+.nav button {
+    background: none;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav button:hover {
     background-color: #9bcdee;
+    color: black;
     border-radius: 5px;
 }

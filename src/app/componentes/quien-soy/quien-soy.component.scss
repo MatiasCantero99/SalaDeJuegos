@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+hr {
+    margin: 30px 0;
+}
+.info-wrapper {
+    display: flex;
+    align-items: flex-start; 
+    gap: 20px; 
+  }
+  
+  .info-wrapper img {
+    width: 300px;
+    border-radius: 10px;
+    flex-shrink: 0;          /* evita que la imagen se encoja */
+  }
+  
+  .info-wrapper ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;        /* si querés quitar los bullets */
+  }
+  .info-wrapper li {
+    margin-bottom: 15px; /* Ajustá el valor a tu gusto */
+  }
