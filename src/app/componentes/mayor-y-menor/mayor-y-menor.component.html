@@ -1,0 +1,34 @@
+
+<div class="juego-mayor-menor container text-center mt-4 mt-4 text-white p-4 rounded">
+  <h2 class="mb-4">Puntaje: {{ score }}</h2>
+
+  <div class="row justify-content-center mb-4">
+    <div *ngIf="previousCard" class="col-12 col-md-3">
+      <p>Carta anterior:</p>
+      <img [src]="previousCard.image" class="img-fluid" alt="Carta anterior">
+    </div>
+
+    <div *ngIf="currentCard" class="col-12 col-md-3">
+      <p>Carta actual:</p>
+      <img [src]="currentCard.image" class="img-fluid" alt="Carta actual">
+    </div>
+
+    <div *ngIf="errorMessage && nextCard" class="col-12 col-md-3">
+      <p>Carta que causó la derrota:</p>
+      <img [src]="nextCard.image" class="img-fluid" alt="Carta derrota">
+    </div>
+  </div>
+
+  <div *ngIf="!errorMessage" class="mb-4">
+    <div class="btn-group">
+      <button (click)="adivinar('mayor')" [disabled]="loading" class="btn btn-success">Mayor</button>
+      <button (click)="adivinar('menor')" [disabled]="loading" class="btn btn-danger">Menor</button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <p>{{ errorMessage }}</p>
+    <button (click)="startGame()" class="btn btn-primary mt-2">Reiniciar</button>
+  </div>
+<p *ngIf="deckId">Cartas restantes: {{ 52 - score - 1 }}</p>
+</div>

@@ -3,3 +3,55 @@
     <br>
     Disfruta de la experiencia
 </h1>
+
+<hr>
+
+<div class="container py-4">
+  <div class="mb-3 w-25">
+    <div class="position-relative">
+      <input
+        type="text"
+        class="form-control pe-5"
+        placeholder="Buscar juego..."
+        [(ngModel)]="filtro"
+      />
+      <button
+        *ngIf="filtro"
+        type="button"
+        class="btn btn-sm btn-link position-absolute top-50 end-0 translate-middle-y me-2 text-danger"
+        (click)="filtro = ''"
+        aria-label="Borrar"
+      >
+        &times;
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="d-flex flex-column gap-2">
+        <button
+          *ngFor="let juego of juegos | juegoFiltro: filtro"
+          class="btn btn-outline-primary d-flex align-items-center justify-content-between"
+          (click)="seleccionarJuego(juego)"
+        >
+          <span>
+            <i class="bi me-2" [ngClass]="juego.icono"></i>
+            {{ juego.nombre }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-8" *ngIf="juegoSeleccionado">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ juegoSeleccionado.nombre }}</h5>
+          <p class="card-text">{{ juegoSeleccionado.descripcion }}</p>
+          <button class="btn btn-success d-block mx-auto mt-3 jugar-btn" (click)="jugar()">Jugar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

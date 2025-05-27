@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <div class="card shadow rounded p-4 form-container">
+    <h2 class="mb-4 text-center">Registro</h2>
+
+    <form (ngSubmit)="register()" #registroForm="ngForm">
+      <!-- mail -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="mail"
+          required
+        />
+      </div>
+
+      <!-- contraseña -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+      </div>
+
+      <!-- Foto -->
+      <div class="mb-3">
+        <label for="foto" class="form-label">Foto</label>
+        <input
+          type="file"
+          id="foto"
+          class="form-control"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="!registroForm.form.valid">
+        Registrarse
+      </button>
+    </form>
+  </div>
+</div>

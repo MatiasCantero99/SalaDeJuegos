@@ -1,12 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MiApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<div class="nav">
-  <button routerLinkActive="selected" routerLink="home">Home</button>
-  
-  <button routerLinkActive="selected" routerLink="login" >Login</button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home" routerLinkActive="active">Home</a>
+        </li>
 
-  <button routerLinkActive="selected" routerLink="registro">Registro</button>
+        <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)">
+          <a class="nav-link" routerLink="login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!(authService.isLoggedIn$ | async)">
+          <a class="nav-link" routerLink="registro" routerLinkActive="active">Registro</a>
+        </li>
 
-  <button routerLinkActive="selected" routerLink="quien-soy">Quien Soy</button>
-</div>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="quien-soy" routerLinkActive="active">Quién Soy</a>
+        </li>
+
+        <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
+          <a class="nav-link" (click)="logout()">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <router-outlet />
