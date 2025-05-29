@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JuegoFiltroPipe } from '../../juego-filtro.pipe'
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrl: './bienvenidos.component.scss'
 })
 export class BienvenidosComponent {
+  @ViewChildren('ultimoMensaje', { read: ElementRef }) mensajesRefs!: QueryList<ElementRef>;
+
   filtro: string = '';
   juegoSeleccionado: any = null;
   // ahorcado: string = 'Adivina la Palabra en 7 o menos intentos, juego clasico de ahorcado.';
@@ -75,6 +77,24 @@ enviarMensaje() {
       fecha: new Date()
     });
     this.nuevoMensaje = '';
+    this.scrollAlUltimoMensaje();
+  }
+}
+
+scrollAlUltimoMensaje() {
+  setTimeout(() => {
+    const elementos = this.mensajesRefs.toArray();
+    if (elementos.length) {
+      const ultimo = elementos[elementos.length - 1];
+      ultimo.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 0); // 0 también funciona, suficiente para esperar al DOM render
+}
+
+toggleChat() {
+  this.mostrarChat = !this.mostrarChat;
+  if (this.mostrarChat) {
+    this.scrollAlUltimoMensaje();
   }
 }
 
