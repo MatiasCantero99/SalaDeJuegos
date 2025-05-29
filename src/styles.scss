@@ -7,28 +7,12 @@ body {
 h1 {
     color: white;
   }
+
+  h2{
+    color: white;
+  }
+
   
-// ::ng-deep .toast-success {
-//   background: linear-gradient(135deg, #7F00FF, #8E2DE2); /* Violeta metalizado */
-//   color: white!important;
-//   font-weight: bold;
-//   border: 1px solid #cba0ff;
-//   box-shadow: 0 0 12px rgba(127, 0, 255, 0.6);
-// }
-
-// ::ng-deep .toast-success .toast-message {
-//   font-size: 1.1rem;
-// }
-
-// ::ng-deep .toast-success .toast-title {
-//   font-size: 1.3rem;
-// }
-
-// ::ng-deep .toast-success .toast-progress {
-//   background-color: white;
-// }
-
-// Aplica fondo metálico violeta y fuerza color blanco
 ::ng-deep .toast-success {
   background: linear-gradient(135deg, #7F00FF, #8E2DE2) !important;
   color: white !important;

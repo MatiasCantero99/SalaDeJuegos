@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +11,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 
-  username: string = "";
+  mail: string = "";
   password: string = "";
 
   login() {
     // Implement login logic here
-    console.log('Username:', this.username);
+    console.log('Username:', this.mail);
     console.log('Password);', this.password);
+  }
+
+  autocompletar() {
+    this.mail = "mail.com";
+    this.password = "1234";
   }
 }

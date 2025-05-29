@@ -1,33 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { DeckService } from '../../service/deck/deck.service';
-// import { NgFor, NgIf } from '@angular/common';
-
-// @Component({
-//   selector: 'app-mayor-y-menor',
-//   standalone: true,
-//   imports: [NgIf,NgFor],
-//   templateUrl: './mayor-y-menor.component.html',
-//   styleUrl: './mayor-y-menor.component.scss'
-// })
-// export class MayorYMenorComponent implements OnInit {
-//   deckId: string = '';
-//   cards: any[] = [];
-
-//   constructor(private deckService: DeckService) {}
-
-//   ngOnInit() {
-//     this.deckService.createDeck().subscribe(res => {
-//       this.deckId = res.deck_id;
-//       this.getCards();
-//     });
-//   }
-
-//   getCards() {
-//     this.deckService.drawCards(this.deckId, 5).subscribe(res => {
-//       this.cards = res.cards;
-//     });
-//   }
-// }
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../service/deck/deck.service';
 import { NgIf } from '@angular/common';

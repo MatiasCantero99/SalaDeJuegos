@@ -1,33 +1,3 @@
-<!-- <div class="ahorcado-container">
-  <img [src]="imagenSrc" alt="Ahorcado" class="imagen-ahorcado" />
-
-  <div class="palabra">
-    <span *ngFor="let letra of palabraSecreta.split('')">
-      {{ mostrarLetra(letra) }}
-    </span>
-  </div>
-
-  <div class="letras">
-  <button
-    *ngFor="let letra of abecedario"
-    [disabled]="letrasSeleccionadas.includes(letra) || intentosRestantes === 0 || mensaje"
-    (click)="seleccionarLetra(letra)"
-    class="btn btn-success m-1"
-    style="width: 45px; height: 45px;">
-    {{ letra }}
-  </button>
-  
-
-</div>
-
-<button class="btn btn-dark mt-3" (click)="iniciarJuego()">
-  Reiniciar
-</button>
-</div>
-
-<a routerLink="/home" class="btn btn-outline-danger mb-3">
-  Salir
-</a> -->
 <div class="container mt-4">
     <div class="card p-4 card-transparente">
         <div class="text-end">

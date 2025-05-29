@@ -6,6 +6,7 @@ import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { AhorcadoComponent } from './componentes/ahorcado/ahorcado.component';
 import { MayorYMenorComponent } from './componentes/mayor-y-menor/mayor-y-menor.component';
+import { PreguntadoComponent } from './componentes/preguntado/preguntado.component';
 
 export const routes: Routes = [
     {
@@ -36,6 +37,10 @@ export const routes: Routes = [
     {
         path: 'Ahorcado',
         component: AhorcadoComponent,
+    },
+    {
+        path: 'Preguntado',
+        component: PreguntadoComponent,
     },
     {
         path: '**',
