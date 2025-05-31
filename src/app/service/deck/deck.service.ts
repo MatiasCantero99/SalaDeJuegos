@@ -12,8 +12,8 @@ export class DeckService {
 
   constructor(private http: HttpClient){}
 
-  createDeck(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/new/shuffle/?deck_count=1`);
+  createDeck(cantidad : number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/new/shuffle/?deck_count=${cantidad}`);
   }
 
   drawCards(deckId: string, count: number): Observable<any> {

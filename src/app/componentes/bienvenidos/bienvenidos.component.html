@@ -7,7 +7,7 @@
 <hr>
 
 <div class="container py-4">
-  <div class="mb-3 w-25">
+  <div class="mb-3 w-50">
     <div class="position-relative">
       <input
         type="text"
@@ -28,33 +28,48 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md-4">
-      <div class="d-flex flex-column gap-2">
-        <button
-          *ngFor="let juego of juegos | juegoFiltro: filtro"
-          class="btn btn-outline-primary d-flex align-items-center justify-content-between"
-          (click)="seleccionarJuego(juego)"
+
+
+<div class="col-12">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <div 
+      class="col" 
+      *ngFor="let juego of juegos | juegoFiltro: filtro"
+    >
+      <div class="card h-100 cursor-pointer shadow-sm card-color" (click)="seleccionarJuego(juego)">
+
+        <div 
+          class="d-flex align-items-center justify-content-center bg-light rounded-top" 
+          style="height: 240px; overflow: hidden;"
         >
-          <span>
+          <img 
+            [src]="getImagen(juego)" 
+            alt="{{ juego.nombre }}"
+            style="max-height: 100%; max-width: 100%; object-fit: contain;"
+          />
+        </div>
+
+
+        <div class="card-body px-3 py-2">
+          <h5 class="card-title mb-2">
             <i class="bi me-2" [ngClass]="juego.icono"></i>
             {{ juego.nombre }}
-          </span>
-        </button>
-      </div>
-    </div>
+          </h5>
 
-    <div class="col-md-8" *ngIf="juegoSeleccionado">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ juegoSeleccionado.nombre }}</h5>
-          <p class="card-text">{{ juegoSeleccionado.descripcion }}</p>
-          <button class="btn btn-success d-block mx-auto mt-3 jugar-btn" (click)="jugar()">Jugar</button>
+          <!-- Descripción y botón solo si está seleccionado -->
+          <div *ngIf="juegoSeleccionado === juego" class="mt-2">
+            <p class="card-text small">{{ juego.descripcion }}</p>
+            <button class="btn btn-success w-100 mt-2" (click)="jugar(); $event.stopPropagation()">Jugar</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
 
 
 

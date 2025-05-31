@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../service/deck/deck.service';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-mayor-y-menor',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf,CommonModule],
   templateUrl: './mayor-y-menor.component.html',
   styleUrl: './mayor-y-menor.component.scss'
 })
@@ -15,6 +15,7 @@ export class MayorYMenorComponent implements OnInit {
   previousCard: any = null;
   nextCard: any = null;
   score: number = 0;
+  cartasRestantes: number = 0;
   errorMessage: string = '';
   loading: boolean = false;
 
@@ -30,7 +31,7 @@ export class MayorYMenorComponent implements OnInit {
     this.currentCard = null;
     this.nextCard = null;
 
-    this.deckService.createDeck().subscribe(res => {
+    this.deckService.createDeck(1).subscribe(res => {
       this.deckId = res.deck_id;
       this.deckService.drawCards(this.deckId, 1).subscribe(res => {
         this.currentCard = res.cards[0];
@@ -68,7 +69,8 @@ export class MayorYMenorComponent implements OnInit {
                          (direccion === 'menor' && actual < anterior);
 
       if (esCorrecto) {
-        this.score++;
+        this.score += 100;
+        this.cartasRestantes ++;
         this.previousCard = this.currentCard;
         this.currentCard = this.nextCard;
         this.nextCard = null;

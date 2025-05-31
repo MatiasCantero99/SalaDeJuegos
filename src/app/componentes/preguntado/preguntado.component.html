@@ -1,27 +1,17 @@
-<div class="container mt-5 text-center">
-  <button class="btn btn-outline-danger position-absolute salir" (click)="salir()">
-  Salir
-  </button>
+<div class="container mt-5 text-center text-white">
 
-  <!-- Selección de dificultad -->
-  <div *ngIf="!preguntaActiva && !mensajeFinal">
-    <h2 class="mb-4">Elegí una dificultad</h2>
-    <div class="btn-group">
-      <button class="btn btn-success" (click)="cambiarDificultad('facil')">Fácil</button>
-      <button class="btn btn-warning" (click)="cambiarDificultad('medio')">Medio</button>
-      <button class="btn btn-danger" (click)="cambiarDificultad('dificil')">Difícil</button>
-    </div>
-  </div>
 
   <!-- Juego activo -->
   <div *ngIf="preguntaActiva" class="mt-4">
+    <p>Vidas restantes: <strong>{{ vidas }}</strong></p>
+    <p>Aciertos: <strong>{{ aciertos }}</strong> / {{ objetivoAciertos }}</p>
     <h4 class="mb-3">Tiempo restante</h4>
     <div class="progress mb-3" style="height: 25px;">
-      <div class="progress-bar" role="progressbar" [style.width.%]="(tiempoRestante / (dificultad === 'dificil' ? 5 : 10)) * 100"
+      <div class="progress-bar" role="progressbar" [style.width.%]="(tiempoRestante) * 100"
            [ngClass]="{
-             'bg-success': tiempoRestante > 5,
-             'bg-warning': tiempoRestante <= 5 && tiempoRestante > 2,
-             'bg-danger': tiempoRestante <= 2
+             'bg-success': tiempoRestante > 40,
+             'bg-warning': tiempoRestante <= 40 && tiempoRestante > 20,
+             'bg-danger': tiempoRestante <= 20
            }">
         {{ tiempoRestante }}s
       </div>
@@ -30,15 +20,12 @@
     <img [src]="personajeActual?.image" class="img-fluid mb-4 rounded shadow" style="max-height: 300px;" />
 
     <div class="d-grid gap-2 col-6 mx-auto">
-      <button *ngFor="let opcion of opciones" class="btn btn-outline-primary" (click)="seleccionar(opcion)">
+      <button *ngFor="let opcion of opciones" class="btn btn-outline-warning" (click)="seleccionar(opcion)">
         {{ opcion.name }}
       </button>
     </div>
-
-    <div class="mt-3">
-      <p class="lead">{{ mensaje }}</p>
-      <p>Aciertos seguidos: <strong>{{ aciertosSeguidos }}</strong></p>
-    </div>
+    <hr>
+    <button class="btn btn-danger" (click)="salir()">Salir</button>
   </div>
 
   <!-- Fin del juego -->
@@ -46,7 +33,7 @@
     <h2 class="text-success">{{ mensajeFinal }}</h2>
     <div class="mt-3">
       <button class="btn btn-primary me-2" (click)="reiniciarJuego()">Reiniciar</button>
-      <!-- <button class="btn btn-secondary" (click)="salir()">Salir</button> -->
+      <button class="btn btn-danger" (click)="salir()">Salir</button>
     </div>
   </div>
 </div>

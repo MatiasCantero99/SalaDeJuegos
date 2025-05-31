@@ -1,0 +1,29 @@
+<div class="mesa">
+  <h2>Blackjack</h2>
+  <p>Vidas: {{ lives }} | Puntaje: {{ score }} | Racha: {{ winStreak }}</p>
+
+  <div class="dealer">
+    <h3>Croupier</h3>
+    <img *ngFor="let card of dealerHand" [src]="card.image" />
+    <img *ngIf="!gameOver && hiddenCard" src="assets/blackjack/back.png" class="back-card" />
+    <p *ngIf="gameOver">Total: {{ getHandValue(dealerHand) }}</p>
+  </div>
+
+  <div class="player">
+    <h3>Jugador</h3>
+    <img *ngFor="let card of playerHand" [src]="card.image" />
+    <p>Total: {{ getHandValue(playerHand) }}</p>
+  </div>
+
+  <div *ngIf="!gameOver">
+    <button class="btn btn-success me-2" (click)="pedirCarta()">Pedir carta</button>
+    <button class="btn btn-warning" (click)="plantarse()">Plantarse</button>
+  </div>
+
+  <p *ngIf="message" class="result-message">{{ message }}</p>
+  <button *ngIf="canContinue && lives > 0" class="btn btn-primary mt-3" (click)="nextHand()">Continuar</button>
+  
+<button *ngIf="lives <= 0" class="btn btn-danger mt-4" (click)="restartGame()">Reiniciar partida</button>
+
+
+</div>

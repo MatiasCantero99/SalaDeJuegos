@@ -4,9 +4,6 @@ import { BienvenidosComponent } from './componentes/bienvenidos/bienvenidos.comp
 import { ErrorComponent } from './componentes/error/error.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
-import { AhorcadoComponent } from './componentes/ahorcado/ahorcado.component';
-import { MayorYMenorComponent } from './componentes/mayor-y-menor/mayor-y-menor.component';
-import { PreguntadoComponent } from './componentes/preguntado/preguntado.component';
 
 export const routes: Routes = [
     {
@@ -27,21 +24,14 @@ export const routes: Routes = [
         component: QuienSoyComponent,
     },
     {
-        path: 'MayoryMenor',
-        component: MayorYMenorComponent,
-    },
-    {
         path: 'registro',
         component: RegistroComponent,
     },
     {
-        path: 'Ahorcado',
-        component: AhorcadoComponent,
-    },
-    {
-        path: 'Preguntado',
-        component: PreguntadoComponent,
-    },
+        path:'juegos',
+    loadChildren: () =>
+    import('./modulos/juegos/juegos.module').then(m => m.JuegosModule)
+  },
     {
         path: '**',
         component: ErrorComponent

@@ -1,4 +1,5 @@
-<div class="container mt-4">
+<div class="container mt-4 text-center text-white">
+    <h2>Ahorcado</h2>
     <div class="card p-4 card-transparente">
         <div class="text-end">
             <a routerLink="/home" class="btn btn-danger">
@@ -10,7 +11,7 @@
             <img [src]="imagenSrc" alt="Ahorcado" class="img-fluid mb-3" style="max-height: 250px;" />
 
             <div class="palabra mb-3">
-                <span *ngFor="let letra of palabraSecreta.split('')" class="mx-1 fs-3 border-bottom">
+                <span *ngFor="let letra of palabraSecreta.split('')" class="mx-1 fs-3 border-bottom text-white">
                     {{ mostrarLetra(letra) }}
                 </span>
             </div>
@@ -29,9 +30,12 @@
                 <!-- botones de letras aquí -->
             </div>
 
-            <div class="mensaje fs-4 fw-bold">{{ mensaje }}</div>
+            <div class="mensaje fs-4 fw-bold text-white">{{ mensaje }}</div>
+            <div *ngIf="score > 0" class="fs-5 text-primary">
+                Puntaje: {{ score }}
+            </div>
 
-            <button class="btn btn-dark mt-3" (click)="iniciarJuego()">
+            <button class="btn btn-primary mt-3" (click)="iniciarJuego()">
                 Reiniciar
             </button>
         </div>

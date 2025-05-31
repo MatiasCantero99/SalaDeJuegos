@@ -1,11 +1,11 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ahorcado',
   standalone: true,
-  imports: [NgFor,RouterLink],
+  imports: [NgFor,RouterLink,NgIf,CommonModule],
   templateUrl: './ahorcado.component.html',
   styleUrl: './ahorcado.component.scss'
 })
@@ -17,12 +17,14 @@ export class AhorcadoComponent implements OnInit {
   imagenSrc = 'assets/ahorcado/ahorcado0';
   mensaje: string = '';
   abecedario: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑ'.split('');
+  score: number = 0;
 
   ngOnInit() {
     this.iniciarJuego();
   }
 
   iniciarJuego() {
+    this.score = 0;
     this.palabraSecreta = this.palabras[Math.floor(Math.random() * this.palabras.length)];
     this.letrasSeleccionadas = [];
     this.intentosRestantes = 7;
@@ -43,7 +45,11 @@ export class AhorcadoComponent implements OnInit {
         this.mensaje = '¡Has perdido! 😢';
       }
     } else if (this.juegoGanado()) {
-      this.mensaje = '¡Has ganado! 🎉';
+      const letrasCorrectas = this.palabraSecreta
+        .split('')
+        .filter((letra, i, arr) => this.letrasSeleccionadas.includes(letra) && arr.indexOf(letra) === i).length;
+      this.score = letrasCorrectas * 100 * this.intentosRestantes;
+      this.mensaje = `¡Has ganado! 🎉 Tu puntaje: ${this.score}`;
     }
   }
 

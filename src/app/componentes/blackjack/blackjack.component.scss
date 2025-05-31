@@ -1,0 +1,26 @@
+.mesa {
+  background-image: url('/assets/blackjack/fondopoker.png');
+  background-size: cover;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+img {
+  height: 120px;
+  margin: 5px;
+  object-fit: cover;
+}
+
+.back-card {
+  height: 120px;
+  width: 84px;
+}
+
+.result-message {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #ffd700;
+  text-shadow: 2px 2px #000;
+}

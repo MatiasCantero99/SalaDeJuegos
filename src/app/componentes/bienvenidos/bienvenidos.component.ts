@@ -1,4 +1,4 @@
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JuegoFiltroPipe } from '../../juego-filtro.pipe'
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-bienvenidos',
   standalone: true,
-  imports: [NgIf,NgFor,FormsModule, JuegoFiltroPipe, NgClass,DatePipe],
+  imports: [NgIf,NgFor,FormsModule, JuegoFiltroPipe, NgClass,DatePipe,CommonModule],
   templateUrl: './bienvenidos.component.html',
   styleUrl: './bienvenidos.component.scss'
 })
@@ -16,8 +16,7 @@ export class BienvenidosComponent {
 
   filtro: string = '';
   juegoSeleccionado: any = null;
-  // ahorcado: string = 'Adivina la Palabra en 7 o menos intentos, juego clasico de ahorcado.';
-  ahorcado: string = 'Que onda roda? como te trata la mañana? son jugadores de boca q odias.';
+  ahorcado: string = 'Adivina la Palabra en 7 o menos intentos, juego clasico de ahorcado.';
 
   mostrarChat = false;
   nuevoMensaje: string = '';
@@ -47,10 +46,10 @@ export class BienvenidosComponent {
   constructor(private router: Router){}
   
   juegos = [
-  { nombre: 'Mayor o Menor', ruta: 'MayoryMenor', descripcion: 'Juego de estrategia por turnos.', icono: 'bi-suit-spade-fill' },
-  { nombre: 'Preguntado', ruta: 'Preguntado', descripcion: 'Resuelve el puzzle de números.', icono: 'bi-question-circle'},
-  { nombre: 'NBA', ruta: 'NBA', descripcion: 'Come puntos y evita fantasmas.', icono: 'bi-controller' },
-  { nombre: 'Ahorcado', ruta: 'Ahorcado', descripcion: this.ahorcado, icono: 'bi-person-x' }
+  { nombre: 'Mayor o Menor', ruta: ['juegos', 'MayoryMenor'], descripcion: 'Adivina la siguiente carta si es mayor o menor, probemos tu suerte.', icono: 'bi-suit-spade-fill' },
+  { nombre: 'Preguntado', ruta: ['juegos', 'Preguntado'], descripcion: 'Responde correctamente quien es el personaje que aparece.', icono: 'bi-question-circle'},
+  { nombre: 'Blackjack', ruta: ['juegos', 'Blackjack'], descripcion: 'Come puntos y evita fantasmas.', icono: 'bi-controller' },
+  { nombre: 'Ahorcado', ruta: ['juegos', 'Ahorcado'], descripcion: this.ahorcado, icono: 'bi-person-x' }
 ];
 
 
@@ -60,9 +59,13 @@ export class BienvenidosComponent {
 
   jugar() {
   if (this.juegoSeleccionado) {
-    console.log('Navegando a:', this.juegoSeleccionado.ruta);
-    this.router.navigate(['/', this.juegoSeleccionado.ruta]);
+    this.router.navigate(this.juegoSeleccionado.ruta);
   }
+}
+
+getImagen(juego: any): string {
+  const nombreSinEspacios = juego.nombre.toLowerCase().replace(/\s/g, '');
+  return `assets/juegos/${nombreSinEspacios}.png`;
 }
 
 get mensajesOrdenados() {
@@ -88,7 +91,7 @@ scrollAlUltimoMensaje() {
       const ultimo = elementos[elementos.length - 1];
       ultimo.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }
-  }, 0); // 0 también funciona, suficiente para esperar al DOM render
+  }, 0);
 }
 
 toggleChat() {

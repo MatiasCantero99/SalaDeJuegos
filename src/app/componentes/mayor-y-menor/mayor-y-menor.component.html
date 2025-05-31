@@ -30,5 +30,5 @@
     <p>{{ errorMessage }}</p>
     <button (click)="startGame()" class="btn btn-primary mt-2">Reiniciar</button>
   </div>
-<p *ngIf="deckId">Cartas restantes: {{ 52 - score - 1 }}</p>
+<p *ngIf="deckId">Cartas restantes: {{ 52 - cartasRestantes - 1 }}</p>
 </div>
