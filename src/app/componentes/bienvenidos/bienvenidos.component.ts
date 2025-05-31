@@ -48,7 +48,7 @@ export class BienvenidosComponent {
   juegos = [
   { nombre: 'Mayor o Menor', ruta: ['juegos', 'MayoryMenor'], descripcion: 'Adivina la siguiente carta si es mayor o menor, probemos tu suerte.', icono: 'bi-suit-spade-fill' },
   { nombre: 'Preguntado', ruta: ['juegos', 'Preguntado'], descripcion: 'Responde correctamente quien es el personaje que aparece.', icono: 'bi-question-circle'},
-  { nombre: 'Blackjack', ruta: ['juegos', 'Blackjack'], descripcion: 'Come puntos y evita fantasmas.', icono: 'bi-controller' },
+  { nombre: 'Blackjack', ruta: ['juegos', 'Blackjack'], descripcion: 'Gana quien se acerque mas a 21 sin pasarse, ganale al croupier!.', icono: 'bi-controller' },
   { nombre: 'Ahorcado', ruta: ['juegos', 'Ahorcado'], descripcion: this.ahorcado, icono: 'bi-person-x' }
 ];
 

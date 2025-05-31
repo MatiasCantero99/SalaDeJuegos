@@ -72,7 +72,7 @@ export class BlackjackComponent implements OnInit {
     return;
   }
 
-  while (dealerTotal < playerTotal && dealerTotal < 21) {
+  while (dealerTotal < 17 || (dealerTotal < playerTotal && dealerTotal < 21)) {
     
 
     const res = await firstValueFrom(this.deckService.drawCards(this.deckId, 1));

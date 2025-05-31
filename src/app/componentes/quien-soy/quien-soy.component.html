@@ -1,23 +1,52 @@
-<h1>Informacion:</h1>
-<body>
-    <div class="info-wrapper">
-  <img src="../../../assets/imagenes/Mi-foto.jpg" alt="Mi Foto">
+<div class="container mt-5">
+  <h1 class="text-white mb-4">Información Personal</h1>
 
-  <ul>
-    <li><strong>Nombre:</strong> Ivan Matias</li>
-    <li><strong>Apellido:</strong> Cantero</li>
-    <li><strong>Edad:</strong> 25 años</li>
-    <li><strong>Materia:</strong> Laboratorio IV</li>
-    <li><strong>Curso:</strong> A341</li>
-  </ul>
-</div>
+  <div class="card mb-4 shadow-sm p-3 fondo">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-3 text-center">
+        <img src="../../../assets/imagenes/Mi-foto.jpg" alt="Mi Foto" class="img-fluid rounded shadow" style="max-height: 200px;">
+      </div>
+      <div class="col-md-9">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Nombre:</strong> Ivan Matias</li>
+          <li class="list-group-item"><strong>Apellido:</strong> Cantero</li>
+          <li class="list-group-item"><strong>Edad:</strong> 25 años</li>
+          <li class="list-group-item"><strong>Materia:</strong> Laboratorio IV</li>
+          <li class="list-group-item"><strong>Curso:</strong> A341</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <hr>
 
-  <h2>Información del Juego:</h2>
-  <div id="info-juego">
-  </div>
-  <div style="height: 1500px">
-    No disponible.
-  </div>
+  <h2 class="text-white mb-3">Información del Juego: Blackjack</h2>
 
-</body>
+  <div class="card shadow-sm p-4 mb-5 blackjack text-white">
+    <p>
+      <strong>Blackjack</strong> (también conocido como 21) es un juego de cartas popular en casinos. El objetivo es sumar una mano lo más cercana posible a <strong>21 puntos</strong> sin pasarse.
+    </p>
+    <h3>Reglas:</h3>
+    <ul>
+      <li>Las cartas numéricas valen su número.</li>
+      <li>Las figuras (J, Q, K) valen 10 puntos.</li>
+      <li>El As puede valer 1 u 11 puntos, dependiendo de lo que más convenga.</li>
+    </ul>
+    <p>
+      Cada jugador compite contra el crupier (no entre sí). Se reparten dos cartas a cada uno. El jugador puede:
+    </p>
+    <ul>
+      <li><strong>Pedir carta</strong>: recibe una más.</li>
+      <li><strong>Plantarse</strong>: se queda con su mano.</li>
+    </ul>
+    <p>
+      Si el jugador supera los 21 puntos, <strong>pierde automáticamente</strong> (esto se llama “pasarse”).
+    </p>
+    <p>
+      El crupier debe seguir reglas fijas: <strong>pedir hasta llegar a 17 o más</strong>. Luego se comparan los puntos.
+    </p>
+    <p>
+      <strong>¡Gana quien esté más cerca de 21 sin pasarse!</strong>
+    </p>
+  </div>
+</div>
