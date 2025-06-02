@@ -25,10 +25,13 @@
       <button (click)="adivinar('menor')" [disabled]="loading" class="btn btn-danger">Menor</button>
     </div>
   </div>
-
+  
   <div *ngIf="errorMessage" class="alert alert-danger">
     <p>{{ errorMessage }}</p>
     <button (click)="startGame()" class="btn btn-primary mt-2">Reiniciar</button>
   </div>
-<p *ngIf="deckId">Cartas restantes: {{ 52 - cartasRestantes - 1 }}</p>
+  <p *ngIf="deckId">Cartas restantes: {{ 52 - cartasRestantes - 1 }}</p>
+  <a routerLink="/home" class="btn btn-danger">
+                Salir
+            </a>
 </div>

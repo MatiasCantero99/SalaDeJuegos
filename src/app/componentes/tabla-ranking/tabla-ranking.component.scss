@@ -1,0 +1,28 @@
+.table-container {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  min-width: 600px;
+  th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  th {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

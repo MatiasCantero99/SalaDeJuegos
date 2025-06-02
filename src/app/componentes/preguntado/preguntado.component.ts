@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AvatarService } from '../../service/avatar/avatar.service';
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-preguntado',
@@ -27,7 +28,7 @@ export class PreguntadoComponent {
   objetivoAciertos = 5;
   juegoTerminado: boolean = false;
 
-  constructor(private avatarService: AvatarService, private router : Router) {}
+  constructor(private avatarService: AvatarService, private router : Router, private authService: AuthService) {}
 
 
   ngOnInit() {
@@ -120,7 +121,7 @@ detenerTemporizador() {
 }
 
 
-  finalizarJuego(gano: boolean) {
+finalizarJuego(gano: boolean) {
   this.juegoTerminado = true;
   this.preguntaActiva = false;
   this.detenerTemporizador();
@@ -129,9 +130,15 @@ detenerTemporizador() {
     const multiplicador = Math.min(Math.floor(this.tiempoRestante / 10), 10);
     this.puntaje = (this.aciertos * 100) * Math.max(multiplicador, 1);
     this.mensajeFinal = `¡Ganaste! Puntaje: ${this.puntaje}`;
+    if (this.authService.isLoggedIn$.value) {
+      this.authService.guardarScore('Preguntado', this.puntaje);
+    }
   } else {
     this.puntaje = 0;
     this.mensajeFinal = 'Perdiste. ¡Intenta de nuevo!';
+    if (this.authService.isLoggedIn$.value) {
+      this.authService.guardarScore('Preguntado', 0);
+    }
   }
 }
 

@@ -1,0 +1,27 @@
+<div class="table-container">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-white text-center align-middle">
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Jugador</th>
+          <th>Puntaje</th>
+          <th>Juego</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jugador of datos; let i = index">
+          <td>
+              <span *ngIf="i === 0">🥇</span>
+              <span *ngIf="i === 1">🥈</span>
+              <span *ngIf="i === 2">🥉</span>
+              <span *ngIf="i > 2">{{ i + 1 }}</span>
+            </td>
+          <td>{{ jugador.mail }}</td>
+          <td>{{ jugador.score }}</td>
+          <td>{{ jugador.juego }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

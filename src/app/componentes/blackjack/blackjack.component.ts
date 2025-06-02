@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../service/deck/deck.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../../service/auth/auth.service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-blackjack',
   standalone: true,
-  imports: [NgIf,NgFor,CommonModule],
+  imports: [NgIf,NgFor,CommonModule, RouterLink],
   templateUrl: './blackjack.component.html',
   styleUrl: './blackjack.component.scss'
 })
@@ -26,7 +28,7 @@ export class BlackjackComponent implements OnInit {
   winStreak = 0;
   maxStreak = 0;
 
-  constructor(private deckService: DeckService) {}
+  constructor(private deckService: DeckService, private authService : AuthService) {}
 
   ngOnInit() {
     this.startGame();
@@ -124,6 +126,9 @@ export class BlackjackComponent implements OnInit {
 
   if (this.lives <= 0) {
     this.message += ` Juego terminado. Puntaje final: ${this.score * this.maxStreak}`;
+    if (this.authService.isLoggedIn$.value) {
+      this.authService.guardarScore('Blackjack', this.score * this.maxStreak);
+    }
   }
 }
 

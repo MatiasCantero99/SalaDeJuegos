@@ -69,4 +69,24 @@ async logout() {
   }
 }
 
+async guardarScore(nombreJuego: string, puntaje: number) {
+  const { data: sessionData } = await this.supabase.auth.getUser();
+  const user = sessionData.user;
+
+  if (!user) return;
+
+  const { error } = await this.supabase
+    .from('score')
+    .insert([
+      {
+        mail: user.email,
+        score: puntaje,
+        juego: nombreJuego
+      }
+    ]);
+
+  if (error) console.error('Error al guardar score:', error.message);
+}
+
+
 }

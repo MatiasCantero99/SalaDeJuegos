@@ -24,8 +24,17 @@
         </li>
 
         <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
+          <a class="nav-link" routerLink="ranking" routerLinkActive="active">Ranking</a>
+        </li>
+
+        <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
+          <a class="nav-link" routerLink="encuesta" routerLinkActive="active">Encuesta</a>
+        </li>
+
+        <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
           <a class="nav-link logout" (click)="logout()">Log Out</a>
         </li>
+
       </ul>
     </div>
   </div>

@@ -1,0 +1,11 @@
+#juegoSelect {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  color: white;
+
+  option {
+    background-color: #1a1a1a;
+    color: white;
+  }
+}

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../service/deck/deck.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { AuthService } from '../../service/auth/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mayor-y-menor',
   standalone: true,
-  imports: [NgIf,CommonModule],
+  imports: [NgIf,CommonModule,RouterLink],
   templateUrl: './mayor-y-menor.component.html',
   styleUrl: './mayor-y-menor.component.scss'
 })
@@ -19,7 +21,7 @@ export class MayorYMenorComponent implements OnInit {
   errorMessage: string = '';
   loading: boolean = false;
 
-  constructor(private deckService: DeckService) {}
+  constructor(private deckService: DeckService, private authService: AuthService) {}
 
   ngOnInit() {
     this.startGame();
@@ -76,6 +78,9 @@ export class MayorYMenorComponent implements OnInit {
         this.nextCard = null;
       } else {
         this.errorMessage = `Fallaste. Tu puntaje final fue ${this.score}.`;
+        if (this.authService.isLoggedIn$.value) {
+          this.authService.guardarScore('Mayor o Menor', this.score);
+        }
       }
     });
   }

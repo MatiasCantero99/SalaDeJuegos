@@ -4,6 +4,7 @@ import { BienvenidosComponent } from './componentes/bienvenidos/bienvenidos.comp
 import { ErrorComponent } from './componentes/error/error.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { RankingComponent } from './componentes/ranking/ranking.component';
 
 export const routes: Routes = [
     {
@@ -28,10 +29,14 @@ export const routes: Routes = [
         component: RegistroComponent,
     },
     {
+        path: 'ranking',
+        component: RankingComponent,
+    },
+    {
         path:'juegos',
     loadChildren: () =>
     import('./modulos/juegos/juegos.module').then(m => m.JuegosModule)
-  },
+    },
     {
         path: '**',
         component: ErrorComponent

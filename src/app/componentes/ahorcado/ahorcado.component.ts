@@ -1,6 +1,7 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -18,6 +19,8 @@ export class AhorcadoComponent implements OnInit {
   mensaje: string = '';
   abecedario: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑ'.split('');
   score: number = 0;
+
+  constructor (private authService: AuthService){}
 
   ngOnInit() {
     this.iniciarJuego();
@@ -50,6 +53,11 @@ export class AhorcadoComponent implements OnInit {
         .filter((letra, i, arr) => this.letrasSeleccionadas.includes(letra) && arr.indexOf(letra) === i).length;
       this.score = letrasCorrectas * 100 * this.intentosRestantes;
       this.mensaje = `¡Has ganado! 🎉 Tu puntaje: ${this.score}`;
+      console.log('fuera');
+      if (this.authService.isLoggedIn$.value) {
+        console.log('entre');
+        this.authService.guardarScore('Ahorcado', this.score);
+      }
     }
   }
 
