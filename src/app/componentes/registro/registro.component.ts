@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth/auth.service';
 
-const supabase = createClient(environment.supabaseUrl,environment.supabaseKey);
+const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
 @Component({
   selector: 'app-registro',
@@ -16,70 +16,62 @@ const supabase = createClient(environment.supabaseUrl,environment.supabaseKey);
   styleUrl: './registro.component.scss'
 })
 export class RegistroComponent {
-  
+
   mail: string;
   password: string;
-  avatarFile: File | null = null;
 
-  constructor(private router: Router, private toastr: ToastrService, private authService : AuthService){
+  constructor(private router: Router, private toastr: ToastrService, private authService: AuthService) {
     this.mail = '';
     this.password = '';
   }
 
-  register() {
-  supabase.auth.signUp({
-    email: this.mail,
-    password: this.password,
-  }).then(({ data, error }) => {
-    if (error) {
-      console.error('Error:', error.message);
-      
-    } else {
-
-      console.log('User registered:', data.user);
-      this.saveUserData(data.user!);
-      
+  async register() {
+    if (this.password.length < 6) {
+      this.toastr.error('La contraseña debe tener al menos 6 caracteres.', 'Contraseña inválida');
+      return;
     }
-  }
-  );
 
-}
-
-  saveUserData(user: User) {
-
-    const avatarUrl = this.saveFile().then((data) => {
-      if (data) {
-
-        supabase.from('miTabla').insert([
-          { authId: user.id, email: this.mail, avatarUrl: data.path }
-        ]).then(({ data, error }) => {
-          if (error) {
-            console.error('Error:', error.message);
-          } else {
-            this.authService.isLoggedIn$.next(true);
-            this.toastr.success('Usuario registrado exitosamente', '¡Éxito!');
-            this.router.navigate(['/home']);
-          }
-        });
-      }
+    const { data, error } = await supabase.auth.signUp({
+      email: this.mail,
+      password: this.password,
     });
 
+    if (error) {
+      if (error.message.includes('already registered') || error.message.includes('duplicate key')) {
+        this.toastr.error('El correo ya está registrado. Probá con otro.', 'Correo duplicado');
+      } else {
+        this.toastr.error('Ocurrió un error al registrarte.', 'Error');
+      }
+      console.error('Error al registrar:', error.message);
+      return;
+    }
+
+    if (data.user) {
+      this.saveUserData(data.user);
+    }
+  }
+
+  saveUserData(user: User) {
+    supabase.from('miTabla').insert([
+      { authId: user.id, email: this.mail }
+    ]).then(async ({ error }) => {
+      if (error) {
+        console.error('Error al guardar datos del usuario:', error.message);
+        this.toastr.error('No se pudo guardar la información del usuario', 'Error');
+        return;
+      }
+
+      try {
+        await this.authService.loginWithEmail(this.mail, this.password);
+        this.authService.isLoggedIn$.next(true);
+        this.toastr.success('Usuario registrado exitosamente', '¡Éxito!');
+        this.router.navigate(['/home']);
+      } catch (loginError: any) {
+        console.error('Error al loguear automáticamente:', loginError.message);
+        this.toastr.error('Error al iniciar sesión automáticamente', 'Error');
+      }
+    });
   }
 
 
-async saveFile() {
-const { data, error } = await supabase
-  .storage
-  .from('images')
-  .upload(`users/${this.avatarFile?.name}`, this.avatarFile!, {
-    cacheControl: '3600',
-    upsert: false
-  });
-
-  return data;
-}
-
-onFileSelected(event: any) {
-  this.avatarFile = event.target.files[0];
-}
 }

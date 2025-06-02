@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment';
+
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +15,25 @@ export class LoginComponent {
 
   mail: string = "";
   password: string = "";
+  error: string = '';
 
-  login() {
-    // Implement login logic here
-    console.log('Username:', this.mail);
-    console.log('Password);', this.password);
+  constructor(private authService: AuthService, private router: Router) {}
+
+  async login() {
+    try {
+      const user = await this.authService.loginWithEmail(this.mail, this.password);
+
+      const perfil = await this.authService.getUsuarioExtendido();
+
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      this.error = 'Email o contraseña incorrectos';
+      console.error('Login error:', error.message);
+    }
   }
 
   autocompletar() {
-    this.mail = "mail.com";
-    this.password = "1234";
+    this.mail = "bifidi3985@acedby.com";
+    this.password = "hola123";
   }
 }

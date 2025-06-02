@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +30,43 @@ export class AuthService {
     return this.supabase;
   }
 
-  async logout() {
+  async loginWithEmail(email: string, password: string) {
+  const { data, error } = await this.supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) throw error;
+
+  return data.user;
+}
+
+
+async getUsuarioExtendido() {
+  const { data: sessionData } = await this.supabase.auth.getUser();
+  const user = sessionData.user;
+
+  if (!user) throw new Error('Usuario no autenticado');
+
+  const { data, error } = await this.supabase
+    .from('miTabla') 
+    .select('email')
+    .eq('authId', user.id)
+    .single();
+
+  if (error) throw error;
+
+  return { ...data, mail: user.email };
+}
+
+async logout() {
+  try {
     await this.supabase.auth.signOut();
+    localStorage.clear();
+    this.isLoggedIn$.next(false); 
+  } catch (error: any) {
+    console.error('Error al cerrar sesión:', error.message);
   }
+}
+
 }
