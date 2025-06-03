@@ -41,6 +41,15 @@ export class AuthService {
   return data.user;
 }
 
+async getUser() {
+  const { data, error } = await this.supabase.auth.getUser();
+  if (error) {
+    console.error('Error al obtener usuario:', error);
+    return null;
+  }
+  return data.user;
+}
+
 
 async getUsuarioExtendido() {
   const { data: sessionData } = await this.supabase.auth.getUser();

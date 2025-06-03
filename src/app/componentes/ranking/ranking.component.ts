@@ -24,26 +24,46 @@ export class RankingComponent implements OnInit {
   }
 
   async obtenerRanking() {
-    this.cargando = true;
-    const supabase = this.authService.getSupabase();
+  this.cargando = true;
+  const supabase = this.authService.getSupabase();
 
-    let query = supabase.from('score').select('*');
+  let query = supabase.from('score').select('*');
 
-    if (this.juegoSeleccionado !== 'Global') {
-      query = query.eq('juego', this.juegoSeleccionado);
-    }
-
-    const { data, error } = await query.order('score', { ascending: false }).limit(10);
-
-    if (!error && data) {
-      this.puntajes = data;
-    } else {
-      console.error('Error al obtener rankings:', error);
+  if (this.juegoSeleccionado === 'Usuario') {
+    const usuario = await this.authService.getUser();
+    if (!usuario) {
       this.puntajes = [];
+      this.cargando = false;
+      return;
     }
-
-    this.cargando = false;
+    query = query.eq('mail', usuario.email);
+  } else if (this.juegoSeleccionado !== 'Global') {
+    query = query.eq('juego', this.juegoSeleccionado);
   }
+
+  const { data, error } = await query.order('score', { ascending: false }).limit(10);
+
+  if (!error && data) {
+  this.puntajes = data.map(jugador => ({
+    ...jugador,
+    created_at_formateado: new Date(jugador.created_at).toLocaleString('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    })
+  }));
+} else {
+  console.error('Error al obtener rankings:', error);
+  this.puntajes = [];
+}
+
+
+  this.cargando = false;
+}
+
 
   cambiarJuego(juego: string) {
     this.juegoSeleccionado = juego;

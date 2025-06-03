@@ -3,10 +3,11 @@
     <table class="table table-bordered table-hover text-white text-center align-middle">
       <thead>
         <tr>
-          <th>Posición</th>
+          <th>Posicion</th>
           <th>Jugador</th>
           <th>Puntaje</th>
           <th>Juego</th>
+          <th>Fecha</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +21,7 @@
           <td>{{ jugador.mail }}</td>
           <td>{{ jugador.score }}</td>
           <td>{{ jugador.juego }}</td>
+          <td>{{ jugador.created_at_formateado }}</td>
         </tr>
       </tbody>
     </table>
