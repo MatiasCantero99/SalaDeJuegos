@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../app/service/auth/auth.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 
@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'TpLabo';
   menuOpen = false;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -27,5 +27,6 @@ export class AppComponent {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/home']);
   }
 }

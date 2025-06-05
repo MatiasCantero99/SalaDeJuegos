@@ -47,8 +47,8 @@
 
     <div class="mb-3" formGroupName="intereses">
       <label>¿Que juego te gusto mas?</label><br>
-      <div *ngFor="let tema of ['Ahorcado', 'Mayor o Menor', 'Blackjack', 'Preguntado']">
-        <input type="checkbox" [formControlName]="tema" /> {{tema | titlecase}}
+      <div *ngFor="let interes of interesesOpciones">
+        <input type="checkbox" [formControlName]="interes.key" /> {{ interes.label }}
       </div>
       <small class="text-danger" *ngIf="encuestaForm.get('intereses')?.errors?.['requerido']">
         Selecciona al menos uno

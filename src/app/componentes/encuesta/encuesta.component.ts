@@ -15,20 +15,26 @@ import { ToastrService } from 'ngx-toastr';
 export class EncuestaComponent implements OnInit {
 
   encuestaForm!: FormGroup;
+  interesesOpciones = [
+  { key: 'Ahorcado', label: 'Ahorcado' },
+  { key: 'MayoroMenor', label: 'Mayor o Menor' },
+  { key: 'Blackjack', label: 'Blackjack' },
+  { key: 'Preguntado', label: 'Preguntado' }
+];
 
   constructor(private fb: FormBuilder, private authService: AuthService, private toastr: ToastrService){}
 
   ngOnInit(): void {
     this.encuestaForm = this.fb.group({
-      nombre: ['', [Validators.required,Validators.pattern('^[a-zA-ZñÑ]+$')]],
-      apellido: ['',[Validators.required, Validators.pattern('^[a-zA-ZñÑ]+$')]],
+      nombre: ['', [Validators.required,Validators.pattern('^[a-zA-ZñÑ ]+$')]],
+      apellido: ['',[Validators.required, Validators.pattern('^[a-zA-ZñÑ ]+$')]],
       edad: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{8,10}$')]],
       opinion: ['', Validators.required], 
       opciones: ['', Validators.required], 
       intereses: this.fb.group({
         Ahorcado: [false],
-        MayorOMenor: [false],
+        MayoroMenor: [false],
         Blackjack: [false],
         Preguntado: [false]
       }, { validators: this.alMenosUnoSeleccionado })
@@ -75,7 +81,7 @@ export class EncuestaComponent implements OnInit {
     opinion: respuestas.opinion,
     consola: respuestas.opciones,
     ahorcado: respuestas.intereses.Ahorcado,
-    mayoromenor: respuestas.intereses.MayorOMenor,
+    mayoromenor: respuestas.intereses.MayoroMenor,
     blackjack: respuestas.intereses.Blackjack,
     preguntado: respuestas.intereses.Preguntado,
   };
