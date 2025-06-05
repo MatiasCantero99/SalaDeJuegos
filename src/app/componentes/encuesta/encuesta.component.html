@@ -1,0 +1,60 @@
+<div class="container mt-4 encuesta-fondo">
+  <form [formGroup]="encuestaForm" (ngSubmit)="enviar()">
+
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input class="form-control" formControlName="nombre" />
+      <small class="text-danger" *ngIf="encuestaForm.get('nombre')?.invalid && encuestaForm.get('nombre')?.touched">
+        Campo obligatorio
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label>Apellido</label>
+      <input class="form-control" formControlName="apellido" />
+      <small class="text-danger" *ngIf="encuestaForm.get('apellido')?.invalid && encuestaForm.get('apellido')?.touched">
+        Campo obligatorio
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label>Edad</label>
+      <input type="number" class="form-control" formControlName="edad" />
+      <small class="text-danger" *ngIf="encuestaForm.get('edad')?.hasError('min')">Debe tener al menos 18 años</small>
+      <small class="text-danger" *ngIf="encuestaForm.get('edad')?.hasError('max')">Debe tener menos de 99 años</small>
+    </div>
+
+    <div class="mb-3">
+      <label>Teléfono</label>
+      <input class="form-control" formControlName="telefono" />
+      <small class="text-danger" *ngIf="encuestaForm.get('telefono')?.hasError('pattern')">Solo números, máx. 10 dígitos</small>
+    </div>
+
+    <div class="mb-3">
+      <label>¿Quieres dejar alguna sugerencia?</label>
+      <textarea class="form-control" formControlName="opinion"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label>¿Consola favorita?</label><br>
+      <div *ngFor="let op of ['Xbox', 'Playstation', 'Switch']">
+        <input type="radio" [value]="op" formControlName="opciones" /> {{op}}
+      </div>
+      <small class="text-danger" *ngIf="encuestaForm.get('opciones')?.invalid && encuestaForm.get('opciones')?.touched">
+        Campo obligatorio
+      </small>
+    </div>
+
+    <div class="mb-3" formGroupName="intereses">
+      <label>¿Que juego te gusto mas?</label><br>
+      <div *ngFor="let tema of ['Ahorcado', 'Mayor o Menor', 'Blackjack', 'Preguntado']">
+        <input type="checkbox" [formControlName]="tema" /> {{tema | titlecase}}
+      </div>
+      <small class="text-danger" *ngIf="encuestaForm.get('intereses')?.errors?.['requerido']">
+        Selecciona al menos uno
+      </small>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="encuestaForm.invalid">Enviar</button>
+  </form>
+</div>

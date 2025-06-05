@@ -1,0 +1,15 @@
+.encuesta-fondo {
+  background-color: rgba(0, 0, 0, 0.7); // fondo oscuro translúcido
+  padding: 2rem;
+  border-radius: 12px;
+  color: white;
+  max-width: 600px;
+  margin: auto;
+}
+
+.campo-blanco {
+  background-color: white;
+  color: black;
+  max-width: 100%; // ocupa todo el contenedor
+  min-width: 200px;
+}
