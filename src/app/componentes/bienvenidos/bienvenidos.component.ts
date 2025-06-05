@@ -40,15 +40,17 @@ export class BienvenidosComponent implements OnInit {
 ngOnInit() {
   this.authService.isLoggedIn$.subscribe(async (loggedIn) => {
     this.conectado = loggedIn;
-    if (loggedIn) {
+    if (!loggedIn) {
+      return;
+    }
+
       try {
         const usuario = await this.authService.getUsuarioExtendido();
         this.nombreUsuario = usuario.mail || 'Email';
       } catch (error) {
         console.error('Error al obtener usuario:', error);
       }
-    }
-  });
+    });
 }
 
 
