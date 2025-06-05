@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '../../service/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   password: string = "";
   error: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   async login() {
     try {
@@ -25,8 +26,17 @@ export class LoginComponent {
 
       const perfil = await this.authService.getUsuarioExtendido();
 
+      const supabase = this.authService.getSupabase();
+      await supabase
+      .from('logs')
+      .insert({
+        mail: perfil.mail,
+        fecha: new Date().toISOString()
+      });
+
       this.router.navigate(['/home']);
     } catch (error: any) {
+      this.toastr.error('Mail o contraseña incorrectos.', 'Error');
       this.error = 'Email o contraseña incorrectos';
       console.error('Login error:', error.message);
     }

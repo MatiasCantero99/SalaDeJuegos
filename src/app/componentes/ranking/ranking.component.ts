@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../service/auth/auth.service';
 import { TablaRankingComponent } from '../tabla-ranking/tabla-ranking.component';
 import { FormsModule } from '@angular/forms';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule, TablaRankingComponent, FormsModule],
+  imports: [CommonModule, TablaRankingComponent, FormsModule, ChatComponent],
   templateUrl: './ranking.component.html',
   styleUrl: './ranking.component.scss'
 })
